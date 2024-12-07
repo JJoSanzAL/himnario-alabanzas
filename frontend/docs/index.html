@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himnario Cristianas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/canciones')
+                .then(response => response.json())
+                .then(data => {
+                    const songsContainer = document.getElementById('songs');
+                    data.forEach(song => {
+                        const songSection = document.createElement('section');
+                        songSection.className = 'song';
+                        songSection.innerHTML = `
+                            <h2 class="song-title">${song.titulo}</h2>
+                            <p>${song.letra.replace(/\n/g, '<br>')}</p>
+                        `;
+                        songsContainer.appendChild(songSection);
+                    });
+                });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="search-container">
+            <h1>Letras de Canciones</h1>
+            <input type="text" id="search" placeholder="Buscar canción...">
+        </div>
+    </header>
+    <main id="songs">
+        <!-- Aquí se cargarán las canciones desde la base de datos -->
+    </main>
+</body>
+</html>
